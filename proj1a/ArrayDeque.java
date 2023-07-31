@@ -42,7 +42,7 @@ public class ArrayDeque<T>{
         if(arr_len == size){
             grow(arr_len * 3);
         }        
-        last = (last + 1) % arr_len;
+        last = move_backward(last);
         arr[last] = item;
         size ++;
     }
@@ -90,7 +90,7 @@ public class ArrayDeque<T>{
         if(size <= index){
             return null;
         }
-        int pos = index;
+        int pos = front;
         while(index > 0){
             pos = move_backward(pos);
             index --;
