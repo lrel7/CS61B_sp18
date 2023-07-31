@@ -1,5 +1,5 @@
 public class LinkedListDeque<T> {
-    public class Node{
+    private class Node{
         private T item; // the item stored on this node
         private Node prev; // the node before
         private Node next; // the node after
@@ -53,7 +53,7 @@ public class LinkedListDeque<T> {
     public void printDeque(){
         Node ptr = sentinel.next;
         while(ptr != sentinel){
-            System.out.println(ptr.item + " ");
+            System.out.print(ptr.item + " ");
             ptr = ptr.next;
         }
     }
