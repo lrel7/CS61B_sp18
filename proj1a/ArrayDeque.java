@@ -10,7 +10,7 @@ public class ArrayDeque<T> {
         arr_len = 8;
         size = 0;
         front = 0;
-        last = -1;
+        last = 0; // sentinel
     }
 
     private void grow() {
@@ -22,7 +22,7 @@ public class ArrayDeque<T> {
         }
         arr = new_arr;
         front = 0;
-        last = size - 1;
+        last = size;
         arr_len *= 2;
     }
 
@@ -35,7 +35,7 @@ public class ArrayDeque<T> {
         }
         arr = new_arr;
         front = 0;
-        last = size - 1;
+        last = size;
         arr_len /= 2;
     }
 
@@ -66,8 +66,8 @@ public class ArrayDeque<T> {
         if (arr_len == size) {
             grow();
         }
-        last = move_backward(last);
         arr[last] = item;
+        last = move_backward(last);
         size++;
     }
 
@@ -81,11 +81,8 @@ public class ArrayDeque<T> {
 
     public void printDeque() {
         int i = front;
-        while (true) {
+        while (i != last) {
             System.out.print(arr[i] + " ");
-            if (i == last) {
-                break;
-            }
             i = move_backward(i);
         }
     }
@@ -107,8 +104,8 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        T ret = arr[last];
         last = move_forward(last);
+        T ret = arr[last];
         size--;
         if (arr_len >= 16 && arr_len / size >= 4) {
             shrink();
