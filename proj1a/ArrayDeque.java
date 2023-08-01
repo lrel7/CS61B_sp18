@@ -23,7 +23,7 @@ public class ArrayDeque<T> {
     private void shrink() {
         T[] new_arr = (T[]) new Object[arr_len / 2];
         int ptr = front;
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             new_arr[i] = arr[ptr];
             ptr = move_backward(ptr);
         }
@@ -41,7 +41,7 @@ public class ArrayDeque<T> {
     }
 
     private int move_backward(int index) {
-        if(index == arr_len - 1) {
+        if (index == arr_len - 1) {
             return 0;
         }
         return index + 1;
@@ -91,7 +91,7 @@ public class ArrayDeque<T> {
         T ret = arr[front];
         front = move_backward(front);
         size--;
-        if(arr_len >= 16 && arr_len / size >= 4) {
+        if (arr_len >= 16 && arr_len / size >= 4) {
             shrink();
         }
         return ret;
@@ -104,7 +104,7 @@ public class ArrayDeque<T> {
         T ret = arr[last];
         last = move_forward(last);
         size--;
-        if(arr_len >= 16 && arr_len / size >= 4) {
+        if (arr_len >= 16 && arr_len / size >= 4) {
             shrink();
         }
         return ret;
