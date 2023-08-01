@@ -10,7 +10,7 @@ public class LinkedListDeque<T> {
             prev = prev_;
             next = next_;
         }
-    } 
+    }
 
     private int size; // number of items
     private Node sentinel; // circular sentinel
@@ -18,9 +18,9 @@ public class LinkedListDeque<T> {
     // constructor
     public LinkedListDeque() {
         size = 0;
-        sentinel = new Node(null, null ,null);
+        sentinel = new Node(null, null, null);
         sentinel.prev = sentinel;
-        sentinel.next = sentinel; 
+        sentinel.next = sentinel;
     }
 
     // add an item to the front of the deque
@@ -40,19 +40,19 @@ public class LinkedListDeque<T> {
     }
 
     // if the deque is empty or not
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
     }
 
     // get the size of the deque
-    public int size(){
+    public int size() {
         return size;
     }
 
     // print the items in the deque from first to last, seperated by a space
     public void printDeque() {
         Node ptr = sentinel.next;
-        while(ptr != sentinel){
+        while (ptr != sentinel) {
             System.out.print(ptr.item + " ");
             ptr = ptr.next;
         }
@@ -60,7 +60,7 @@ public class LinkedListDeque<T> {
 
     // removes and returns the item at the front of the deque, returns null if the deque is empty
     public T removeFirst() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
         T first = sentinel.next.item;
@@ -72,27 +72,43 @@ public class LinkedListDeque<T> {
 
     // removes and returns the item at the end of the deque, returns null if the deque is empty
     public T removeLast() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
         T last = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
         sentinel.prev.prev.next = sentinel;
-        size --;
+        size--;
         return last;
     }
 
     // get the item at the given index, 0 refers to the front, 1 refers to its next, and so on
     // returns null if no such index
     public T get(int index) {
-        if(size <= index) {
+        if (size <= index) {
             return null;
         }
         Node ptr = sentinel.next;
-        while(index > 0) {
+        while (index > 0) {
             ptr = ptr.next;
             index--;
         }
         return ptr.item;
     }
+
+    private T recursive_helper(Node start, int index) {
+        if (index == 0) {
+            return start.item;
+        }
+        return recursive_helper(start.next, index - 1);
+    }
+
+    // get (recursive version)
+    public T getRecursive(int index) {
+        if (size <= index) {
+            return null;
+        }
+        return recursive_helper(sentinel.next, index);
+    }
+
 }
