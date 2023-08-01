@@ -13,11 +13,17 @@ public class ArrayDeque<T> {
         last = 0;
     }
 
-    private void grow(int capacity) {
-        T[] new_arr = (T[]) new Object[capacity];
-        System.arraycopy(arr, 0, new_arr, 0, arr_len);
+    private void grow() {
+        T[] new_arr = (T[]) new Object[arr_len * 2];
+        int ptr = front;
+        for(int i = 0; i < size; i++) {
+            new_arr[i] = arr[ptr];
+            ptr = move_backward(ptr);
+        }
         arr = new_arr;
-        arr_len = capacity;
+        front = 0;
+        last = size - 1;
+        arr_len *= 2;
     }
 
     private void shrink() {
@@ -49,7 +55,7 @@ public class ArrayDeque<T> {
 
     public void addFirst(T item) {
         if (arr_len == size) {
-            grow(arr_len * 3);
+            grow();
         }
         front = move_forward(front);
         arr[front] = item;
@@ -58,7 +64,7 @@ public class ArrayDeque<T> {
 
     public void addLast(T item) {
         if (arr_len == size) {
-            grow(arr_len * 3);
+            grow();
         }
         last = move_backward(last);
         arr[last] = item;
