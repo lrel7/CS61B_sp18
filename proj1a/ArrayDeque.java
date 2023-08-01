@@ -10,7 +10,7 @@ public class ArrayDeque<T> {
         arr_len = 8;
         size = 0;
         front = 0;
-        last = 0;
+        last = -1;
     }
 
     private void grow() {
